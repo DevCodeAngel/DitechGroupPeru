@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\administratorController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Route;
         
 
 Route::get('/', [PageController::class, 'index'])->name('index');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/register', [LoginController::class, 'register'])->name('register');
 
 // Ruta para mostrar la vista de productos
 Route::get('/productos', [ProductosController::class, 'index'])->name('productos.index');

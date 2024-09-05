@@ -28,7 +28,9 @@
     height: auto;
     background-color: rgb(168, 12, 199);
     border-radius: 10px;
+}
 
-
+.productos{
+    border-radius: 20px;
 }
 

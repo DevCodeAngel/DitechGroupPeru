@@ -310,8 +310,8 @@
                 <!-- Conjunto 1 -->
                 <div class="carousel-set">
                     @foreach ($productos as $producto)
-                        <div class="carousel-item" style="width: 400px; height: 350px">
-                            <img src="{{ asset('images/' . $producto->imagen) }}" alt="{{ $producto->descripcion }}" width="300" height="300">
+                        <div class="carousel-item" style="width: 400px; height: 600px">
+                            <img src="{{ asset('images/' . $producto->imagen) }}" alt="{{ $producto->descripcion }}">
                             <div class="carousel-info">
                                 <p class="carousel-description">{{ $producto->descripcion }}</p>
                                 <p class="carousel-price">S/. {{ number_format($producto->precio, 2) }}</p>

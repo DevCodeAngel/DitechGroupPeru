@@ -13,7 +13,10 @@ class ProductosController extends Controller
         $categorias = categoria::all();
         $productos = producto::all();
 
-        return view('admin.productos', compact('categorias', 'productos'));
+        /* cantidad de productos por categoria */ 
+        $totalProductos = $productos->where($categorias,'categoria_id')->count();
+
+        return view('admin.productos', compact('categorias', 'productos', 'totalProductos'));
     }
 
     public function store(Request $request)

@@ -250,24 +250,27 @@
 
 .carousel-set {
     display: flex;
-    flex: 0 0 100%;
-    justify-content: space-around;
+    flex-wrap: wrap;
 
 }
 
 .carousel-item {
-    flex: 0 0 33.33%; /* Cambiar a 33.33% para mostrar 3 por fila en escritorio */
+    width: 33.33%;
     box-sizing: border-box;
     text-align: center;
     display: block;
+    flex-wrap: wrap;
 }
 
 .carousel-item img {
     width: 100%;
-    border-radius: 10px;
+    height: 400px;
     padding: 10%;
+    z-index: -1;
 }
 
+
+/*carrusel anuncios */
 .carousel-button {
     position: absolute;
     top: 50%;

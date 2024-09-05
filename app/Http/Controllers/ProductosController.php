@@ -51,18 +51,20 @@ class ProductosController extends Controller
     }
 
     public function search(Request $request){
-
-        $productos = producto::all();
         $search = producto::all()->search('nombre');
+        $productos = producto::all();
 
-        if ($search === ($request->nombre)){
+        $request->validate([
+            'nombre' => 'required'
+        ]);
+
+        if($search === 'nombre'){
             return $productos;
-        }
-        else{
-            return 'No se encontro el Producto';
+        }else{
+            return 'no se encontro el producto';
         }
 
-        return view('admin.productos');
+        return back();
     }
     
 

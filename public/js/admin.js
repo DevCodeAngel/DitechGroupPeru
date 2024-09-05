@@ -23,3 +23,4 @@ document.getElementById('config').addEventListener('click', function(event) {
     header.classList.toggle('collapsed');
 });
 
+

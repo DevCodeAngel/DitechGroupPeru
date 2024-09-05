@@ -1,6 +1,6 @@
 @extends('admin.index')
 
-@section('title', 'Inicio')
+@section('title', 'Productos')
 <link rel="stylesheet" href="{{ asset('css/ads.css') }}">
 <link rel="stylesheet" href="{{ asset('css/productos.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -10,7 +10,7 @@
     <!-- Alerts Section -->
     @if (session('success'))
         <div class="alert success">
-            <strong>Success!</strong> {{ session('success') }}
+            <strong>{{ session('success') }}</strong>
         </div>
     @endif
 
@@ -25,17 +25,21 @@
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                 <div class="d-flex justify-content-evenly">
                                     @php
+                                        // Filtramos los productos de la categoría actual
                                         $productosCategoria = $productos->where('categoria_id', $categoria->id);
+                                        // Contamos el total de productos en esta categoría
+                                        $totalProductos = $productosCategoria->count();
                                     @endphp
-                                    @if ($productosCategoria->count())
+                                    @if ($totalProductos > 0)
                                         <div class="card" style="background-color: White;">
-    
                                             <div class="card-body d-grid" style="background-color: White;">
-                                                <div class="d-flex  justify-content-evenly ">
+                                                <div class="d-flex justify-content-evenly">
                                                     <h4 class="card-title text-center">{{ $categoria->nombre }}</h4>
-                                                    <button class="productos btn btn-success">Total {{$totalProductos}}</button>
+                                                    <!-- Mostramos el total de productos por categoría -->
+                                                    <button class="productos btn btn-success">Total
+                                                        {{ $totalProductos }}</button>
                                                 </div>
-    
+
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
@@ -74,39 +78,95 @@
                             </div>
                         @endforeach
                     </div>
-    
+
                     <!-- Controles del carrusel -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
                         <span class="visually-hidden">Siguiente</span>
                     </button>
+
                 </div>
             </div>
-            
+
             <div class="d-block">
                 <div class="mt-3 mr-4">
                     <div class="card p-4">
-                        <form action="">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <p class="mb-0"><strong>Registrar Productos</strong></p>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Agregar Categoría
+                            </button>
+                        </div>
+
+                        <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <input type="file" class="form-control" id="imagen" name="imagen">
+                                </div>
+                            </div>
+
                             <div class="row d-flex">
-                            
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" class="form-control" id="modelo" name="nombre"
+                                        placeholder="Ingrese el Nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="modelo" name="descripcion"
+                                        placeholder="Ingrese las características">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="categoria_id" name="categoria_id">
+                                        <option selected disabled>Seleccione una categoría</option>
+                                        @foreach ($categorias as $categoria)
+                                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" class="form-control" id="stock" name="stock"
+                                        placeholder="Ingrese la cantidad de productos" min="1">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" class="form-control" id="precio" name="precio"
+                                        placeholder="Ingrese el precio" step="0.01">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Registrar</button>
+                        </form>
+                    </div>
+
+                </div>
+
+
+                <div class="mt-3 mr-4">
+                    <div class="card p-4">
+                        <form action="{{route('productos.search')}}" method="POST">
+                            @csrf
+                            <div class="row d-flex">
                                 <div class="col mb-3">
                                     <input type="text" class="form-control" id="modelo" name="nombre"
-                                    placeholder="Buscar Productos">
-                                    
+                                        placeholder="Buscar Productos">
                                 </div>
                                 <div class="col-md-2">
                                     <button type="submit" class="btn btn-primary w-100">Buscar</button>
-                                    
                                 </div>
-                                
                             </div>
                         </form>
                         
-                        <table class="table">
+                        <table class="table scrooll">
                             <thead>
                                 <tr>
                                     <th scope="col">Imagen</th>
@@ -120,8 +180,8 @@
                                     <tr>
                                         <th>
                                             <img src="{{ asset('images/' . $producto->imagen) }}"
-                                                alt="{{ $producto->imagen }}" class="img-fluid"
-                                                width="100" height="50">
+                                                alt="{{ $producto->imagen }}" class="img-fluid" width="100"
+                                                height="50">
                                         </th>
                                         <th>{{ $producto->stock }}</th>
                                         <td>{{ $producto->descripcion }}</td>
@@ -130,68 +190,12 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        
-                    </div>
-                </div>
-
-
-
-                <div class="mt-3 mr-4">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-Warning m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Agregar Categoria
-                    </button>
-                    
-                    <div class="card p-4">
-                        <p>Registrar Productos</p>
-                        <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row mb-3">
-                            
-                                <div class="col">
-                                    <input type="file" class="form-control" id="imagen" name="imagen">
-                                </div>
-                            </div>
     
-                            <div class="row d-flex">
-                                <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" id="modelo" name="nombre"
-                                    placeholder="Ingrese el Nombre">
-                                    
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="modelo" name="descripcion"
-                                        placeholder="Ingrese las caracteristicas">
-                                    
-                                </div>
-                                
-                            </div>
-    
-                            <div class="row mb-3">
-                                <div class="col-md-4"><select class="form-select" id="categoria_id" name="categoria_id">
-                                    <option selected disabled>Seleccione una categoría</option>
-                                    @foreach ($categorias as $categoria)
-                                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-                                    @endforeach
-                                </select>
-                                    
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" class="form-control" id="stock" name="stock"
-                                        placeholder="Ingrese la cantidad de productos" min="1">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="number" class="form-control" id="precio" name="precio"
-                                    placeholder="Ingrese el precio" step="0.01">
-                                </div>
-                            </div>
-    
-                            
-                            <button type="submit" class="btn btn-primary w-100">Submit</button>
-                        </form>
                     </div>
                 </div>
             </div>
+
+
             
         </div>
     </section>
@@ -211,7 +215,7 @@
                         @csrf
                         <div class="row mb-3">
                             <input type="text" class="form-control mb-2" id="modelo" name="nombre"
-                                placeholder="Ingrese el modelo">
+                                placeholder="Ingrese el Nombre de la categoria">
 
                             <input type="text" class="form-control mb-2" id="modelo" name="descripcion"
                                 placeholder="Ingrese la descripcion o comentario">

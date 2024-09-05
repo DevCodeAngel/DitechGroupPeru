@@ -23,4 +23,6 @@ Route::post('/categorias-store', [CategoriasController::class, 'store'])->name('
 
 Route::get('/admin-ditech', [administratorController::class, 'dashboard'])->name('admin-ditech');
 
+Route::post('/productos-search',[ProductosController::class, 'search'])->name('productos.search');
+
 

@@ -307,6 +307,7 @@
 
         <div class="carousel">
             <div class="carousel-container" id="carouselContainer">
+                
                 <!-- Conjunto 1 -->
                 <div class="carousel-set">
                     @foreach ($productos as $producto)

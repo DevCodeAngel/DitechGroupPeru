@@ -14,8 +14,8 @@ class ProductosController extends Controller
         $productos = producto::all();
 
         /* cantidad de productos por categoria */ 
-        $totalProductos = $productos->where($categorias,'categoria_id')->count();
-
+        $totalProductos = producto::all()->count();
+        $searchProductos = producto::all()->select('nombre');
         return view('admin.productos', compact('categorias', 'productos', 'totalProductos'));
     }
 
@@ -48,6 +48,21 @@ class ProductosController extends Controller
         $producto->save();
     
         return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
+    }
+
+    public function search(Request $request){
+
+        $productos = producto::all();
+        $search = producto::all()->search('nombre');
+
+        if ($search === ($request->nombre)){
+            return $productos;
+        }
+        else{
+            return 'No se encontro el Producto';
+        }
+
+        return view('admin.productos');
     }
     
 

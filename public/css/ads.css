@@ -1,0 +1,34 @@
+.card-ad{
+    width: 100%;
+    height: 100vh;
+    border-radius: 0.5rem;
+    position: relative;
+    background-color: chartreuse;
+}
+
+.card-header{
+    width: 100%;
+    height: 10%;
+    background-color: cornflowerblue;
+}
+
+.card-body{
+    width: 100%;
+    height: 90%;
+
+    background-color: rgb(12, 77, 199);
+    display: flex;
+    flex-direction: row;
+    gap: 1%;
+    padding: 1%;
+}
+
+.card-item{
+    width: 50%;
+    height: auto;
+    background-color: rgb(168, 12, 199);
+    border-radius: 10px;
+
+
+}
+

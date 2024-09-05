@@ -1,0 +1,377 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.principal, .logo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.content-rigth{
+    width: calc(100% - 15%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sidebar {
+    width: 15%; /* Ajusta según sea necesario */
+    height: 100vh; /* Altura completa de la ventana */
+    background: linear-gradient(180deg, rgb(9, 123, 216), rgb(89, 172, 245)); /* Degradado de arriba hacia abajo */
+    transition: all 0.3s ease;
+
+}
+
+.content-rigth.collapsed,
+.content-main.collapsed,
+.header.collapsed {
+    width: calc(100% - 5%);
+    transition: width 0.3s ease; /* Transición suave para cambios */
+
+}
+
+/* Estilos comunes */
+.sidebar, .content-right, .content-main, .header {
+    transition: all 0.3s ease; /* Transición suave para todas las propiedades */
+    overflow: hidden; /* Oculta el contenido desbordante */
+}
+
+.sidebar.collapsed {
+    width: 5%;
+
+    .item-sidebar p, .exit p, h1{
+        display: none;
+    }
+
+    .item-sidebar:hover, .exit:hover{
+        border: none;
+        transform: translateX(0px);
+        background-color: white;
+
+        .icon{
+            color: rebeccapurple;
+        }
+    }
+
+    .logo img {
+        transform: rotate(-90deg); /* Rota el logo 90 grados */
+        width: auto; /* Ajusta el ancho del logo según sea necesario */
+        height: 5rem; /* Mantén la proporción de aspecto */
+        transition: transform 0.3s ease; /* Añade una transición suave */
+
+    }
+
+
+
+}
+
+
+.logo{
+    height: 10rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid 1px rgb(235, 241, 245);
+    margin-bottom: 2px;
+}
+
+
+.sidebar img{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+
+}
+
+.sidebar .enlaces-sidebar{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 10rem);
+
+}
+
+.enlaces-sidebar .item-sidebar{
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    transition: transform .5s;
+    margin-bottom: auto;
+}
+
+
+.enlaces-sidebar .item-sidebar:hover {
+    border: 1px solid rgb(235, 241, 245);
+    color: white;
+    transform: translateX(0px);
+    border-radius: 10px;
+}
+
+.enlaces-sidebar p{
+    font-size: larger;
+}
+
+.exit{
+    height: 10%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    transition: transform .5s;
+}
+
+.exit:hover{
+
+    color: white;
+    transform: translateX(-20px);
+}
+
+/*estilos header*/
+.header{
+    width: calc(100% - 15%);
+    height: 4rem;
+    background: linear-gradient(180deg, rgb(9, 123, 216), rgb(89, 172, 245));
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+
+}
+
+.content-header{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.btn-menu{
+    background-color: transparent;
+    border: none;
+    transition: opacity .5s ease;
+    cursor: pointer;
+
+}
+
+
+.input-search{
+    height: 30px;
+    width: 600px;
+    border: none;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+.btn-search{
+    height: 30px;
+    background-color: rgb(25, 57, 240);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    border: 1 solid gray;
+}
+
+.btn-search:hover{
+    background-color: darkblue;
+    color: white;
+}
+
+.icons-header{
+    
+    width: 20%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: end;
+}
+
+.icons-header a{
+    text-decoration: none;
+}
+
+.config{
+    display: none;
+}
+
+.content-config{
+    width: 80px;
+    height: 100px;
+    position: absolute;
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 10px 0 10px;
+    z-index: 9999;
+}
+
+.content-config a{
+    height: 20px;
+}
+
+.img-profile{
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+
+
+/*estilos contenido principal*/
+.content-main{
+    position:absolute;
+    top: 4rem;
+    height: calc(100vh - 4rem); ;
+    width: calc(100% - 15%);
+    padding: 1%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(12, 113, 196);
+}
+
+
+
+
+
+/* estilos de cards */
+.content-cards{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.cards{
+    width: calc(25%);
+    height: 100px;
+    margin: 0 10px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px 0 20px 0;
+}
+
+table{
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+table thead{
+    height: 30px;
+    background-color: #f5f5dc;
+    text-align: center;
+}
+
+tbody{
+    text-align: center;
+}
+.content-icons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon-edit{
+    color: green;
+}
+
+.icon-show{
+    color: blue;
+}
+
+.icon-delete{
+    color: red;
+}
+
+
+
+    .alert {
+        padding: 15px;
+        background-color: #ff9800;
+        color: #fff;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        transition: opacity 1s ease-out;
+    }
+
+    .alert.success {
+        background-color: #4caf50;
+    }
+
+    .alert.error {
+        background-color: #f44336;
+    }
+
+    .alert.warning {
+        background-color: #ff9800;
+    }
+
+
+    .profile {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .profile img {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        object-fit: cover;
+    }
+
+    .profile-menu {
+        display: none;
+        position: absolute;
+        top: 60px; /* Ajusta según el tamaño del header */
+        right: 15px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        width: 200px;
+    }
+
+    .profile-menu.show {
+        display: block;
+    }
+
+    .profile-menu p {
+        margin: 0;
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        color: #007bff;
+    }
+
+    .profile-menu p:last-child {
+        border-bottom: none;
+    }
+
+    .profile-menu a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #333;
+        text-align: center;
+        border-top: 1px solid #ddd;
+    }
+
+    .profile-menu a:hover {
+        background-color: #f4f6f8;
+    }

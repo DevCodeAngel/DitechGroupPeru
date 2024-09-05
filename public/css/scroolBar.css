@@ -1,0 +1,51 @@
+/* Scrollbar personalizado para navegadores webkit (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de desplazamiento vertical */
+    height: 12px; /* Altura de la barra de desplazamiento horizontal */
+}
+
+body::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo de la pista de la barra de desplazamiento */
+    border-radius: 10px; /* Borde redondeado de la pista */
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #888; /* Color del pulgar (parte que se mueve) de la barra de desplazamiento */
+    border-radius: 10px; /* Borde redondeado del pulgar */
+    border: 2px solid #f1f1f1; /* Borde alrededor del pulgar */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color del pulgar cuando se pasa el ratón por encima */
+}
+
+/* Scrollbar personalizado para Firefox */
+body {
+    scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
+    scrollbar-color: #888 #f1f1f1; /* Color del pulgar y la pista */
+}
+
+/* Opcional: Scrollbar personalizado para Internet Explorer y Edge */
+body {
+    -ms-overflow-style: none; /* Desactiva la barra de desplazamiento predeterminada */
+}
+
+body::-ms-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+body::-ms-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+body::-ms-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+}
+
+body::-ms-scrollbar-thumb:hover {
+    background: #555;
+}

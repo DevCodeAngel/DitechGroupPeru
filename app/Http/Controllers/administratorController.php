@@ -15,4 +15,9 @@ class administratorController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function ajustes(){
+        return view('admin.ajustes');
+    }
 }
+

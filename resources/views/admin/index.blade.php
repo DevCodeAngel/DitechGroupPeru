@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>main</title>
+    <title>Index</title>
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
@@ -42,7 +42,7 @@
                     <i class="bi bi-megaphone icon"></i>
                     <p>Anuncios</p>
                 </a>
-                <a href="" class="item-sidebar">
+                <a href="/ajustes" class="item-sidebar">
                     <i class="bi bi-gear icon"></i>
                     <p>Ajustes</p>
                 </a>

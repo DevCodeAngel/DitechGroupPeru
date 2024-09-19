@@ -28,4 +28,8 @@ Route::get('/admin-ditech', [administratorController::class, 'dashboard'])->name
 
 Route::post('/productos-search',[ProductosController::class, 'search'])->name('productos.search');
 
+Route::get('/ajustes', [administratorController::class, 'ajustes'])->name('ajustes.index');
+Route::get('/profile/edit', function () {
+    return view('profile.edit');
+});
 

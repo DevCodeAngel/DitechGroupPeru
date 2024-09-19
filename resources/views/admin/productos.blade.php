@@ -153,44 +153,87 @@
 
                 <div class="mt-3 mr-4">
                     <div class="card p-4">
-                        <form action="{{route('productos.search')}}" method="POST">
+                        <!-- Formulario de búsqueda -->
+                        <form action="{{ route('productos.search') }}" method="POST">
                             @csrf
-                            <div class="row d-flex">
+
+                            <div class="row d-flex mb-3">
                                 <div class="col mb-3">
-                                    <input type="text" class="form-control" id="nombreProducto" name="nombre" placeholder="Buscar Productos...">
+                                    <input type="text" class="form-control" id="nombreProducto" name="nombre" placeholder="Buscar por nombre...">
                                 </div>
                                 <div class="col-md-2">
                                     <button type="submit" class="btn btn-primary w-100">Buscar</button>
                                 </div>
                             </div>
+                            <!-- Mostrar total de productos encontrados -->
+                            <div class="d-flex justify-content-end mb-2">
+                                Total de productos encontrados: {{ $totalProductosSearch }}
+                            </div>
                         </form>
-                        
-                        <table class="table-responsive">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Imagen</th>
-                                    <th scope="col">Cant.</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col">Precio</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($productos as $producto)
-                                    <tr>
-                                        <th>
-                                            <img src="{{ asset('images/' . $producto->imagen) }}"
-                                                alt="{{ $producto->imagen }}" class="img-fluid" width="100"
-                                                height="50">
-                                        </th>
-                                        <th>{{ $producto->stock }}</th>
-                                        <td>{{ $producto->descripcion }}</td>
-                                        <td>S/. {{ number_format($producto->precio, 2) }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-    
+
+                        <!-- Verificar si hay productos encontrados -->
+                        @if(isset($productoSearch) && $productoSearch->isNotEmpty())
+                            <!-- Contenedor para la tabla con encabezado fijo y cuerpo con scroll -->
+                            <div class="table-wrapper">
+                                <table class="table table-striped">
+                                    <thead>
+
+                                        <tr>
+                                            <th scope="col">Imagen</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Cant.</th>
+                                            <th scope="col">Precio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($productoSearch as $productobuscado)
+                                            <tr>
+                                                <td>
+                                                    <img src="{{ asset('images/' . $productobuscado->imagen) }}"
+                                                        alt="{{ $productobuscado->imagen }}" class="img-fluid" width="100"
+                                                        height="50">
+                                                </td>
+                                                <td>{{ $productobuscado->nombre }}</td>
+                                                <td>{{ $productobuscado->descripcion }}</td>
+                                                <td>{{ $productobuscado->stock }}</td>
+                                                <td>S/. {{ number_format($productobuscado->precio, 2) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <!-- Mensaje cuando no se encuentran productos -->
+                            <div>
+                                No se encontraron productos
+                            </div>
+                        @endif
                     </div>
+
+                    <style>
+                        .table-wrapper {
+                            position: relative;
+                            max-height: 400px;
+                            overflow-y: auto;
+                        }
+
+                        .table-wrapper thead {
+                            position: -webkit-sticky; /* For Safari */
+                            position: sticky;
+                            top: 0;
+                            background-color: #fff; /* Background color to match the card */
+                            z-index: 1; /* Ensure header is above the body */
+                        }
+
+                        .table-wrapper th {
+                            text-align: center;
+                        }
+                    </style>
+
+
+
+
                 </div>
             </div>
         </div>

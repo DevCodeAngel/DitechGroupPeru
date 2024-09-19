@@ -8,14 +8,12 @@ use Illuminate\Http\Request;
 
 class ProductosController extends Controller
 {
-    public function index(){
-
+    public function index()
+    {
         $categorias = categoria::all();
-        $productos = producto::all();
+        $productos = producto::all();  // Todos los productos por defecto
+        $totalProductos = producto::count();  // Total de productos
 
-        /* cantidad de productos por categoria */ 
-        $totalProductos = producto::all()->count();
-        $searchProductos = producto::all()->select('nombre');
         return view('admin.productos', compact('categorias', 'productos', 'totalProductos'));
     }
 
@@ -29,14 +27,14 @@ class ProductosController extends Controller
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'categoria_id' => 'required|exists:categorias,id',
         ]);
-    
+
         if ($request->hasFile('imagen')) {
             $imageName = time() . '.' . $request->imagen->extension();
             $request->imagen->move(public_path('images'), $imageName);
         } else {
             $imageName = null;
         }
-    
+
         // Crear un nuevo producto
         $producto = new Producto();
         $producto->nombre = $request->nombre;
@@ -46,26 +44,38 @@ class ProductosController extends Controller
         $producto->imagen = $imageName;
         $producto->categoria_id = $request->categoria_id;
         $producto->save();
-    
+
         return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
     }
 
-    public function search(Request $request){
-        $search = producto::all()->search('nombre');
-        $productos = producto::all();
-
+    public function search(Request $request)
+    {
+        // Validar el nombre para la búsqueda
         $request->validate([
-            'nombre' => 'required'
+            'nombre' => 'nullable|string|max:255',
         ]);
 
-        if($search === 'nombre'){
-            return $productos;
-        }else{
-            return 'no se encontro el producto';
+        // Obtener el valor de búsqueda del request
+        $nombre = $request->input('nombre');
+
+        // Inicializar la consulta de productos
+        $query = producto::query();
+
+        // Aplicar filtro por nombre si se proporciona
+        if ($nombre) {
+            $query->where('nombre', 'like', "%$nombre%");
         }
 
-        return back();
-    }
-    
+        // Ejecutar la consulta y obtener los productos
+        $productoSearch = $query->get();
+        $totalProductos = $productoSearch->count();  // Contar productos encontrados
 
+        // Obtener todas las categorías
+        $categorias = categoria::all();
+        $productos = producto::all();
+        $totalProductosSearch = $productoSearch->count();
+
+        // Pasar los productos encontrados, categorías y otros datos a la vista
+        return view('admin.productos', compact('categorias', 'productoSearch', 'totalProductos','productos','totalProductosSearch'));
+    }
 }

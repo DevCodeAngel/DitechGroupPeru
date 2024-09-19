@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class administratorController extends Controller
 {
-    function index()
+    public function index()
     {
         return view('admin.index');
     }
@@ -16,8 +16,5 @@ class administratorController extends Controller
         return view('admin.dashboard');
     }
 
-    public function ajustes(){
-        return view('admin.ajustes');
-    }
 }
 
